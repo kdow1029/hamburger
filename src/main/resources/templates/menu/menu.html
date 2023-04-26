@@ -12,8 +12,10 @@
         <span>이벤트</span>
     </div>
     <div class="nav-bar_column">
-    <button>장바구니</button>
-    <button>로그인</button>
+    <input type="button" th:onclick="|location.href='@{/shopping_basket}'|"
+     placeholder="장바구니">
+
+    <input type="button" placeholder="로그인">
     </div>
 </div>
 <main class="main-screen">
@@ -25,10 +27,12 @@
         <h1>메뉴소개</h1>
         </div>
         <div class="menu-hamburger">
-            <a href="/menu/hamburger1">
-            <img src="/css/img/hamburger1.jpg"/>
-                냠냠 햄버거
+            <a  href="/menu/hamburger1">
+            <img  src="/css/img/hamburger1.jpg"/>
+
             </a>
+            <span id="menu">냠냠 햄버거</span>
+            <span id="price">10000</span>
         </div>
     </div>
 </main>

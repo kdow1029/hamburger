@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -20,7 +21,7 @@ public class Order {
     @Column(length = 100, nullable = false)
     private String menu;
 
-    @Column(length = 100, nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @Column(length = 100, nullable = false)

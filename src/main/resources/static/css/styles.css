@@ -6,6 +6,7 @@
 
 /* screen */
 @import "screens/menu.css";
+@import "screens/hamburger1.css";
 
 .main-screen{
     padding: 0px;
