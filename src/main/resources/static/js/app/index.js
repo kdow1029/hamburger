@@ -19,9 +19,8 @@ let main = {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (){
-            alert('장바구니에 추가')
-            console.log(data);
-            // window.location.href = '/menu'
+            alert('장바구니에 추가되었습니다.')
+            window.location.href = '/menu'
         }).fail(function (error){
             alert(JSON.stringify(error));
         });

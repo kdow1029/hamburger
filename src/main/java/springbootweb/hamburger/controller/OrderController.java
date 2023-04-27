@@ -2,6 +2,7 @@ package springbootweb.hamburger.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import springbootweb.hamburger.service.OrderService;
 
@@ -24,7 +25,9 @@ public class OrderController {
     }
 
     @GetMapping("/shopping_basket")
-    public String shopping_basket(){
+    public String shopping_basket(Model model){
+        model.addAttribute("posts", orderService.getList());
+
         return "shopping_basket";
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class OrderDetailController {
+public class OrderApiController {
 
 
     private final OrderService orderService;
