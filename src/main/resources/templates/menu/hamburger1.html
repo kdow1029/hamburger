@@ -1,21 +1,111 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <meta charset="UTF-8">
-    <title>HamBurGGGGER</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
-<body>
-<div class="menu-hamburger">
-    <a href="/menu/hamburger1">
-        <img src="/css/img/hamburger1.jpg"/>
-    </a>
-    <span id="menu">냠냠햄버거</span>
-    <span id="content">안녕하세요 HIHIHI</span>
-    <span id="price">170000</span>
-    <input id="btn-add" type="button" placeholder="장바구니에 추가" >
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+            $(document).ready(function(){
+
+            calculateTotalPrice();
+
+            $("#count").change( function(){
+            calculateTotalPrice();
+                });
+            });
+
+            function calculateTotalPrice(){
+            let count = $("#count").val();
+            let price = $("#price").val();
+            let totalPrice = price*count;
+            $("#totalPrice").html(totalPrice + '원');
+            }
+
+            function addCart(){
+            let token = $("meta[name='_csrf']").attr("content");
+            let header = $("meta[name='_csrf_header']").attr("content");
+
+            let url = "/cart";
+            let paramData = {
+            id : $("#orderId").val(),
+            count : $("#count").val()
+            };
+
+            let param = JSON.stringify(paramData);
+
+            $.ajax({
+            url      : url,
+            type     : "POST",
+            contentType : "application/json",
+            data     : param,
+            beforeSend : function(xhr){
+            /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+            xhr.setRequestHeader(header, token);
+            },
+            dataType : "json",
+            cache   : false,
+            success  : function(result, status){
+            alert("상품을 장바구니에 담았습니다.");
+            location.href='/menu';
+            },
+            error : function(jqXHR, status, error){
+
+            if(jqXHR.status == '401'){
+            alert('로그인 후 이용해주세요');
+            location.href='/members/login';
+            } else{
+            alert(jqXHR.responseText);
+            }
+
+        }
+        });
+        }
+
+    </script>
+</th:block>
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content" style="margin-left:25%;margin-right:25%">
+
+    <input type="number" id="orderId" th:value="${order.id}">
+
+    <div >
+            <div th:text="${order.menu}"></div>
+            <hr >
+            <div >
+                <div>
+                    <input type="hidden" th:value="${order.price}" id="price" name="price">
+                    <span th:text="${order.price}"></span>원
+                </div>
+                <div>
+
+                    <input type="number" name="count" id="count"  value="1" min="1">
+                </div>
+            </div>
+            <hr>
+            <div >
+                <h5>결제 금액</h5>
+                <h3 name="totalPrice" id="totalPrice" ></h3>
+            </div>
+                <button type="button" onclick="addCart()">장바구니 담기</button>
+    </div>
+
+    <div>
+        <div class="container">
+            <h4 >상품 상세 설명</h4>
+            <hr >
+            <p th:text="${order.content}"></p>
+        </div>
+    </div>
+
 </div>
-<script src="/js/app/index.js"></script>
-</body>
+
 </html>

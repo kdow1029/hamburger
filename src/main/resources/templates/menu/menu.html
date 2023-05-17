@@ -1,41 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
-<body>
-<div class="nav-bar">
-    <div class="nav-bar_column">
-        <span>메뉴</span>
-        <span>이벤트</span>
-    </div>
-    <div class="nav-bar_column">
-    <input type="button" th:onclick="|location.href='@{/shopping_basket}'|"
-     placeholder="장바구니">
-
-    <input type="button" placeholder="로그인">
-    </div>
-</div>
-<main class="main-screen">
-    <div class="menu-front">
-        <h1>HOME > 메뉴소개</h1>
-    </div>
+<div layout:fragment="content">
     <div>
-        <div class="menu-font">
-        <h1>메뉴소개</h1>
-        </div>
         <div class="menu-hamburger">
-            <a  href="/menu/hamburger1">
-            <img  src="/css/img/hamburger1.jpg"/>
-
-            </a>
+            <input  id="btn-add" type="button"/>
+<!--            <a th:href="@{/menu/{id}(id = ${orders.id})}">View page</a>-->
+            <img src="/css/img/hamburger1.jpg">
+            <input id="count" type="hidden" value=1>
             <span id="menu">냠냠 햄버거</span>
+            <span id="content">하이하이</span>
             <span id="price">10000</span>
         </div>
     </div>
-</main>
-
-</body>
+</div>
 </html>
