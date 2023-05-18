@@ -1,27 +1,38 @@
 package springbootweb.hamburger.service;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import springbootweb.hamburger.domain.Order;
-import springbootweb.hamburger.domain.OrderRepository;
-import springbootweb.hamburger.dto.OrderSaveReqDto;
+import springbootweb.hamburger.dto.OrderSaveDto;
+import springbootweb.hamburger.entity.Order;
+import springbootweb.hamburger.repository.OrderRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-@RequiredArgsConstructor
+
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    @Transactional
-    public Order save(OrderSaveReqDto reqDto){
-        return orderRepository.save(reqDto.toEntity());
+    public Long save(OrderSaveDto orderSaveDto){
+        return orderRepository.save(orderSaveDto.toEntity()).getId();
+
+    }
+    @Transactional(readOnly = true)
+    public OrderSaveDto getOrderDtl(Long orderId){
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
+        OrderSaveDto orderSaveDto = OrderSaveDto.of(order);
+        return orderSaveDto;
     }
 
-    public List<Order> getList(){
+
+    public List<Order> getList() {
         return orderRepository.findAll();
     }
 }

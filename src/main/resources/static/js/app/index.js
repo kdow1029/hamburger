@@ -10,21 +10,6 @@ let main = {
         $('#btn-addCart').on('click', function (){
             _this.addCart();
         });
-        $(document).ready(function(){
-
-            calculateToalPrice();
-
-            $("#count").change( function(){
-                calculateToalPrice();
-            });
-        });
-
-        function calculateToalPrice(){
-            let count = $("#count").val();
-            let price = $("#price").val();
-            let totalPrice = price*count;
-            $("#totalPrice").html(totalPrice + '원');
-        }
     }
     ,
 
@@ -34,7 +19,7 @@ let main = {
         let header = $("meta[name='_csrf_header']").attr("content");
         let url = '/api/add';
         let data = {
-            id: $('#orderId').val(),
+            orderId: $('#orderId').val(),
             menu: $('#menu').text(),
             content: $('#content').text(),
             price: $('#price').text(),

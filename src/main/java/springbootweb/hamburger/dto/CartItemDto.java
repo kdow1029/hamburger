@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class CartDto {
+public class CartItemDto {
 
     @NotNull(message = "상품 아이디 필수 입력")
     private Long orderId;

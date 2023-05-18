@@ -2,7 +2,7 @@ package springbootweb.hamburger.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import springbootweb.hamburger.dto.CartDto;
+import springbootweb.hamburger.dto.CartItemDto;
 import springbootweb.hamburger.entity.Cart;
 import springbootweb.hamburger.entity.CartItem;
 import springbootweb.hamburger.entity.Member;
@@ -23,8 +23,8 @@ public class CartService {
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
 
-    public Long addCart(CartDto cartDto, String email){
-        Order order = orderRepository.findById(cartDto.getOrderId())
+    public Long addCart(CartItemDto cartItemDto, String email){
+        Order order = orderRepository.findById(cartItemDto.getOrderId())
                 .orElseThrow(EntityNotFoundException::new);
         Member member = memberRepository.findByEmail(email);
 
@@ -34,13 +34,13 @@ public class CartService {
             cartRepository.save(cart);
         }
 
-        CartItem saveCartItem = cartItemRepository.findByCartIdAndOrderId(cart.getId(), order.getId());
+        CartItem savedCartItem = cartItemRepository.findByCartIdAndOrderId(cart.getId(), order.getId());
 
-        if(saveCartItem != null){
-            saveCartItem.addCount(cartDto.getCount());
-            return saveCartItem.getId();
+        if(savedCartItem != null){
+            savedCartItem.addCount(cartItemDto.getCount());
+            return savedCartItem.getId();
         }else {
-            CartItem cartItem = CartItem.createItem(cart, order, cartDto.getCount());
+            CartItem cartItem = CartItem.createItem(cart, order, cartItemDto.getCount());
             cartItemRepository.save(cartItem);
             return cartItem.getId();
         }

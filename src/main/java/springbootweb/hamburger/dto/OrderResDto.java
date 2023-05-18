@@ -1,7 +1,7 @@
 package springbootweb.hamburger.dto;
 
 import lombok.Getter;
-import springbootweb.hamburger.domain.Order;
+import springbootweb.hamburger.entity.Order;
 
 
 @Getter
