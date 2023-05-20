@@ -67,15 +67,10 @@
     </script>
 </th:block>
 
-<!-- 사용자 CSS 추가 -->
-<th:block layout:fragment="css">
-    <style>
-    </style>
-</th:block>
 
 <div layout:fragment="content" style="margin-left:25%;margin-right:25%">
 
-    <input type="number" id="orderId" th:value="${order.id}">
+    <input type="hidden" id="orderId" th:value="${order.id}">
 
     <div >
             <div th:text="${order.menu}"></div>

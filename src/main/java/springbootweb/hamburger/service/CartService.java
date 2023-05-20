@@ -2,7 +2,10 @@ package springbootweb.hamburger.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 import springbootweb.hamburger.dto.CartItemDto;
+import springbootweb.hamburger.dto.CartListDto;
 import springbootweb.hamburger.entity.Cart;
 import springbootweb.hamburger.entity.CartItem;
 import springbootweb.hamburger.entity.Member;
@@ -13,9 +16,12 @@ import springbootweb.hamburger.repository.MemberRepository;
 import springbootweb.hamburger.repository.OrderRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CartService {
 
     private final CartRepository cartRepository;
@@ -44,9 +50,46 @@ public class CartService {
             cartItemRepository.save(cartItem);
             return cartItem.getId();
         }
+    }
 
+    public void deleteCartItem(Long cartItemId){
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(EntityNotFoundException::new);
+        cartItemRepository.delete(cartItem);
+    }
 
+    @Transactional(readOnly = true)
+    public List<CartListDto> getCartList(String email){
 
+        List<CartListDto> cartListDtos = new ArrayList<>();
 
+        Member member = memberRepository.findByEmail(email);
+        Cart cart =cartRepository.findByMemberId(member.getId());
+        if(cart == null){
+            return cartListDtos;
+        }
+
+        cartListDtos = cartItemRepository.findCartListDto(cart.getId());
+        return cartListDtos;
+    }
+
+    @Transactional(readOnly = true)
+    public boolean validateCartItem(Long cartItemId, String email){
+        Member curMember = memberRepository.findByEmail(email);
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        Member savedMember = cartItem.getCart().getMember();
+
+        if(!StringUtils.equals(curMember.getEmail(),savedMember.getEmail())){
+            return false;
+        }
+        return true;
+    }
+
+    public void updateCount(Long cartItemId, int count){
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(EntityNotFoundException::new);
+        cartItem.updateCount(count);
     }
 }
