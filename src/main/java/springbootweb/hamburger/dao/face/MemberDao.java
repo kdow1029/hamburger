@@ -1,9 +1,7 @@
 package springbootweb.hamburger.dao.face;
 
 
-
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 import springbootweb.hamburger.dto.Member;
 @Mapper
 public interface MemberDao   {

@@ -36,8 +36,6 @@ build/
 ### VS Code ###
 .vscode/
 <<<<<<< HEAD
-!/.mvn/
-!/HELP.md
+/.mvn/
+/HELP.md
 /src/main/resources/application.yml
-=======
->>>>>>> dowan

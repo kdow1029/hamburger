@@ -8,21 +8,15 @@
 #    driver-class-name: org.h2.Driver
 #    url: jdbc:h2:~/test
 
-
-
-
 server:
   port: 8888
 
 spring:
   datasource:
     username: root
-    password: '0000'
+    password: 1234
     url: jdbc:mysql://localhost:3306/mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-
-
 
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
