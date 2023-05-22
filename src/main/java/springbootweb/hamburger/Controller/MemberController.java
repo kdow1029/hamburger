@@ -1,4 +1,4 @@
-package springbootweb.hamburger.Controller;
+package springbootweb.hamburger.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
