@@ -5,6 +5,6 @@ import springbootweb.hamburger.entity.Cart;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
-  Cart findByMemberId(Long memberId);
+//  Cart findByMemberId(Long memberId);
 
 }

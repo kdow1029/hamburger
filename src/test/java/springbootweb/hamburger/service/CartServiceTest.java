@@ -8,10 +8,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import springbootweb.hamburger.dto.CartItemDto;
 import springbootweb.hamburger.entity.CartItem;
-import springbootweb.hamburger.entity.Member;
 import springbootweb.hamburger.entity.Order;
 import springbootweb.hamburger.repository.CartItemRepository;
-import springbootweb.hamburger.repository.MemberRepository;
 import springbootweb.hamburger.repository.OrderRepository;
 
 import javax.persistence.EntityNotFoundException;
