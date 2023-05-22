@@ -9,14 +9,25 @@
 <div layout:fragment="content">
     <div>
         <div class="menu-hamburger">
-            <input  id="btn-add" type="button"/>
-            <a th:href="@{/menu/{id}(id = ${order.id})}">View page</a>
+            <input  class="btn-add" type="button"/>
+            <a th:href="@{/menu/1}">View page</a>
             <img src="/css/img/hamburger1.jpg">
-            <input id="count" type="hidden" value=1>
-            <span id="menu">냠냠 햄버거</span>
-            <span id="content">하이하이</span>
-            <span id="price">10000</span>
+            <input class="count" type="hidden" value=1>
+            <span class="menu">냠냠 햄버거</span>
+            <span class="contents">두꺼운 패티와 참깨가 올라간 고소한 빵 정성을 가득 담은 치즈까지~~~</span>
+            <span class="price">10000</span>
         </div>
+
+<!--        <div class="menu-hamburger">-->
+<!--            <a class="btn-add" th:href="@{/menu/2}">View page</a>-->
+<!--            <img src="/css/img/hamburger2.jpg">-->
+<!--            <input class="count" type="hidden" value=1>-->
+<!--            <span class="menu">숟숟 햄버거</span>-->
+<!--            <span class="contents">숟숟</span>-->
+<!--            <span class="">30000</span>-->
+<!--        </div>-->
+
+
     </div>
 </div>
 </html>
